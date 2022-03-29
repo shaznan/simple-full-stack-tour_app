@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Card from "./components/Card";
+import "./App.css";
+import Header from "./components/Header";
+import AddBtn from "./components/AddBtn";
+import AddLocationModal from "./components/AddLocationModal";
 
 function App() {
+  const [open, setOpen] = useState(true);
+  const handleClose = () => setOpen(false);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <AddBtn setOpen={setOpen} />
+      <AddLocationModal open={open} handleClose={handleClose} />
+      <div className="container">
+        <Card />
+        <Card />
+      </div>
     </div>
   );
 }
