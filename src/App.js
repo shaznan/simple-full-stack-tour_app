@@ -8,10 +8,12 @@ import AddLocationModal from "./components/AddLocationModal";
 function App() {
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
+
   return (
     <div className="App">
       <Header />
-      <AddBtn setOpen={setOpen} />
+      <AddBtn handleOpen={handleOpen} />
       <AddLocationModal open={open} handleClose={handleClose} />
       <div className="container">
         <Card />

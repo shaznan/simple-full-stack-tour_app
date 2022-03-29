@@ -2,10 +2,7 @@ import React from "react";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { Button } from "@mui/material";
 
-function AddBtn({ setOpen }) {
-  const handleOpen = () => {
-    setOpen(true);
-  };
+function AddBtn({ handleOpen }) {
   return (
     <div className="addBtn">
       <Button
