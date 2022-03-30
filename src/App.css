@@ -36,3 +36,16 @@
   justify-content: center;
   margin-top: 1rem;
 }
+
+.submitBtn {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.errorMsg {
+  display: flex;
+  justify-content: center;
+  color: red;
+  margin-top: 0.5rem;
+}
