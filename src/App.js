@@ -1,21 +1,15 @@
-import React, { useState } from "react";
-import Card from "./components/Card";
+import React from "react";
 import "./App.css";
 import Header from "./components/Header";
-import AddBtn from "./components/AddBtn";
-import AddLocationModal from "./components/AddLocationModal/AddLocationModal";
-import AddLocation from "./containers/AddLocation/AddLocation";
+import AddLocations from "./containers/AddLocation/AddLocation";
+import Locations from "./containers/locations/Locations";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <AddLocation />
-
-      <div className="container">
-        <Card />
-        <Card />
-      </div>
+      <AddLocations />
+      <Locations />
     </div>
   );
 }
