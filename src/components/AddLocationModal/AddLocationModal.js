@@ -69,7 +69,7 @@ export default function AddLocationModal({
                 onChangeHandler={(e) => setDescription(e.target.value)}
               />
               <InputFeild
-                title="Location"
+                title="Province"
                 size="12"
                 onChangeHandler={(e) => setLocation(e.target.value)}
               />

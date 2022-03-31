@@ -1,39 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LocationCard from "../../components//LocationCard";
 import { Grid } from "@mui/material";
 import ViewLocation from "../ViewLocation/ViewLocation";
+import axios from "axios";
+import { SERVICE } from "../../constants/index";
 
 function Locations() {
   const [openLocation, setOpenLocation] = useState(false);
   const handleClose = () => setOpenLocation(false);
   const handleOpen = () => setOpenLocation(true);
+  const [tours, setAllTours] = useState([]);
+  const [error, setError] = useState(false);
 
-  //dummydata
-  const data = {
-    firstName: "shaznan",
-    dateCreated: new Date(),
-    title: "Colombo",
-    location: "https://www.google.com/maps/@6.9091157,79.8632827,15z",
+  const getAllTours = async () => {
+    try {
+      const tours = await axios.get(`${SERVICE}/api/v1/tours`);
+      setAllTours(tours?.data?.tour);
+    } catch (error) {
+      setError(true);
+    }
   };
+
+  useEffect(() => {
+    getAllTours();
+  }, []);
+
+  console.log(tours);
 
   return (
     <>
-      <ViewLocation open={openLocation} handleClose={handleClose} data={data} />
+      {/* <ViewLocation open={openLocation} handleClose={handleClose} data={data} /> */}
       <div className="container">
         <Grid container spacing={2}>
-          <LocationCard
-            handleOpen={handleOpen}
-            title="Colombo"
-            firstName="shaznan"
-            imgUrl="https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-          />
-          <LocationCard
-            handleOpen={handleOpen}
-            firstName="shaznan"
-            imgUrl="https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-          />
+          {tours?.length ? (
+            tours.map((item) => (
+              <LocationCard
+                key={item._id}
+                handleOpen={handleOpen}
+                data={item}
+              />
+            ))
+          ) : (
+            <div>No Tours Found</div>
+          )}
         </Grid>
       </div>
     </>

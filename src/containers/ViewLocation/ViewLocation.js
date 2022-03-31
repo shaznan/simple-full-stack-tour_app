@@ -20,8 +20,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "40vw",
-  height: "60vh",
+
   bgcolor: "background.paper",
   boxShadow: 24,
   display: "flex",
@@ -29,7 +28,7 @@ const style = {
 };
 
 function ViewLocation({ handleClose, open, data }) {
-  const { firstName, dateCreated, title, location } = data || {};
+  const { firstName, dateCreated, title, imgUrl } = data || {};
   return (
     <Modal
       open={open}
@@ -38,7 +37,7 @@ function ViewLocation({ handleClose, open, data }) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Card className="card" style={{ width: "100%", height: "100%" }}>
+        <Card className="card">
           <CardHeader
             avatar={
               <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -48,20 +47,13 @@ function ViewLocation({ handleClose, open, data }) {
             title={title}
             subheader="September 14, 2016"
           />
-          <iframe
-            src="https://www.google.com/maps/@6.9091157,79.8632827,15z"
-            width="100%"
-            height="100%"
-            allowfullscreen="false"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
-          {/* <CardMedia
+
+          <CardMedia
             component="img"
             height="194"
             image={imgUrl}
             alt="Paella dish"
-          /> */}
+          />
         </Card>
       </Box>
     </Modal>

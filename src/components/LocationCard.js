@@ -12,14 +12,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import EditIcon from "@mui/icons-material/Edit";
 import { Button } from "@mui/material";
 import { Grid } from "@mui/material";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
-export default function LocaitonCard({
-  firstName,
-  imgUrl,
-  description,
-  title,
-  handleOpen,
-}) {
+export default function LocaitonCard({ data, handleOpen }) {
+  const { firstName, imgUrl, description, title, province, createdAt } =
+    data || {};
+
   return (
     <Grid item xs={12} md={6} lg={3}>
       <Card sx={{ maxWidth: 345 }} className="card">
@@ -30,7 +28,7 @@ export default function LocaitonCard({
             </Avatar>
           }
           title={title}
-          subheader="September 14, 2016"
+          subheader={createdAt}
         />
         <CardMedia
           component="img"
@@ -43,6 +41,17 @@ export default function LocaitonCard({
             {description}
           </Typography>
         </CardContent>
+        <div
+          style={{
+            marginLeft: "1rem",
+            display: "flex",
+          }}
+        >
+          <LocationOnIcon style={{ opacity: 0.3 }} />
+          <Typography variant="body2" color="text.secondary">
+            {province}
+          </Typography>
+        </div>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
             <FavoriteIcon />
