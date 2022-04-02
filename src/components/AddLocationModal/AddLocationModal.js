@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useMemo } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -6,7 +6,9 @@ import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
 import InputFeild from "./InputFeild";
 import Grid from "@mui/material/Grid";
-import { ENTER_REQUIRED_FEILDS } from "../../constants";
+import { ENTER_REQUIRED_FEILDS, LIST_OF_PROVINCE } from "../../constants/";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 
 const style = {
   position: "absolute",
@@ -27,9 +29,30 @@ export default function AddLocationModal({
   setImgUrl,
   setDescription,
   setLocation,
+  province,
+  setProvince,
   errorMsg,
   onSubmitHandler,
 }) {
+  const options = [
+    { value: LIST_OF_PROVINCE.CENTRAL_PROVINCE, label: "Central Province" },
+    { value: LIST_OF_PROVINCE.NORTHERN_PROVINCE, label: "Northern Province" },
+    {
+      value: LIST_OF_PROVINCE.NORTH_CENTRAL_PROVINCE,
+      label: "North Central Province",
+    },
+    { value: LIST_OF_PROVINCE.EASTERN_PROVINCE, label: " EasternProvince" },
+    {
+      value: LIST_OF_PROVINCE.NORTH_WESTERN_PROVINCE,
+      label: " Western Province",
+    },
+    { value: LIST_OF_PROVINCE.SOUTHERN_PROVINCE, label: "Southern Province" },
+  ];
+
+  // useMemo(() => setProvince[0], []);
+
+  console.log(province);
+
   return (
     <div>
       <Modal
@@ -68,11 +91,27 @@ export default function AddLocationModal({
                 size="12"
                 onChangeHandler={(e) => setDescription(e.target.value)}
               />
-              <InputFeild
-                title="Province"
-                size="12"
-                onChangeHandler={(e) => setLocation(e.target.value)}
-              />
+              <div
+                style={{
+                  marginTop: "1rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+              >
+                <Typography variant="body2" style={{ marginRight: "1rem" }}>
+                  Select A Province
+                </Typography>
+                <Dropdown
+                  options={options}
+                  onChange={(e) => {
+                    setProvince(e.value);
+                  }}
+                  value={province}
+                  placeholder="Select a province"
+                />
+              </div>
             </Grid>
             {errorMsg && (
               <div className="errorMsg">

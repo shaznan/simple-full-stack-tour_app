@@ -8,6 +8,7 @@ function AddLocation() {
   const [imgUrl, setImgUrl] = useState(null);
   const [description, setDescription] = useState(null);
   const [location, setLocation] = useState(null);
+  const [province, setProvince] = useState(null);
   const [errorMsg, setErrorMsg] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -29,6 +30,8 @@ function AddLocation() {
         setDescription={setDescription}
         setLocation={setLocation}
         errorMsg={errorMsg}
+        province={province}
+        setProvince={setProvince}
         open={open}
         handleClose={handleClose}
         onSubmitHandler={onSubmitHandler}
