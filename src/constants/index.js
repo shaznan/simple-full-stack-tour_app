@@ -1,5 +1,7 @@
 export const ENTER_REQUIRED_FEILDS = "Please Enter Required Fields";
-export const SERVICE = "https://notes-app-backend0123.herokuapp.com";
+export const SERVICE = {
+  HEROKU: "https://notes-app-backend0123.herokuapp.com",
+};
 
 export const LIST_OF_PROVINCE = {
   NORTHERN_PROVINCE: "Northern Province",

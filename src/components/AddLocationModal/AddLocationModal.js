@@ -28,7 +28,6 @@ export default function AddLocationModal({
   setTitle,
   setImgUrl,
   setDescription,
-  setLocation,
   province,
   setProvince,
   errorMsg,

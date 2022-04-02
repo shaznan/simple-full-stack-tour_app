@@ -4,6 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { LIST_OF_PROVINCE } from "../../constants/index";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -57,6 +58,7 @@ export default function SelectProvince() {
           <Tab label="Item Two" {...a11yProps(1)} />
           <Tab label="Item Three" {...a11yProps(2)} />
         </Tabs>
+        s
       </Box>
       <TabPanel value={value} index={0}>
         Item One
