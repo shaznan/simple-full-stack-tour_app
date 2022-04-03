@@ -39,9 +39,14 @@ function a11yProps(index) {
   };
 }
 
-export default function SelectProvince() {
-  const [value, setValue] = React.useState(0);
+//check customAllprovince inclused All province, includes ? retrun : push item to customAllProvince
 
+export default function SelectProvince({ allProvince }) {
+  const customProvinces = [
+    ...new Set(allProvince?.map((item) => item.province)),
+  ].map((province) => allProvince?.find((item) => item.province === province));
+
+  const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -54,11 +59,13 @@ export default function SelectProvince() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
+          {customProvinces.map((item) => (
+            <Tab label={item?.province} />
+          ))}
+          {/* <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label="Item Three" {...a11yProps(2)} /> */}
+          {/* <Tab label="Item One" {...a11yProps(0)} /> */}
         </Tabs>
-        s
       </Box>
       <TabPanel value={value} index={0}>
         Item One

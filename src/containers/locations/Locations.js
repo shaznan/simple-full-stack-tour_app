@@ -12,8 +12,6 @@ function Locations({ tours, error, getAllTours }) {
     getAllTours();
   }, []);
 
-  console.log(tours);
-
   return (
     <>
       {/* <ViewLocation open={openLocation} handleClose={handleClose} data={data} /> */}

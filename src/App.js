@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import SelectProvince from "./components/SelectProvince";
@@ -10,6 +10,7 @@ import { SERVICE } from "./constants/index";
 function App() {
   const [tours, setAllTours] = useState([]);
   const [error, setError] = useState(false);
+  const [allProvince, setAllProvince] = useState(null);
 
   const getAllTours = async () => {
     try {
@@ -20,11 +21,26 @@ function App() {
     }
   };
 
+  const getAllProvince = async () => {
+    try {
+      const provinces = await axios.get(
+        `${SERVICE.HEROKU}/api/v1/tours?fields=province`
+      );
+      setAllProvince(provinces?.data?.tour);
+    } catch (error) {
+      setError(true);
+    }
+  };
+
+  useEffect(() => {
+    getAllProvince();
+  }, []);
+
   return (
     <div className="App">
       <Header />
       <AddLocations getAllTours={getAllTours} />
-      <SelectProvince />
+      <SelectProvince allProvince={allProvince} />
       <Locations tours={tours} error={error} getAllTours={getAllTours} />
     </div>
   );
