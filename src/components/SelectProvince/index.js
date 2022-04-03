@@ -1,81 +1,45 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
-import { LIST_OF_PROVINCE } from "../../constants/index";
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
-//check customAllprovince inclused All province, includes ? retrun : push item to customAllProvince
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 
 export default function SelectProvince({ allProvince }) {
   const customProvinces = [
     ...new Set(allProvince?.map((item) => item.province)),
   ].map((province) => allProvince?.find((item) => item.province === province));
 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState("");
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  //autoSelect first item
+  useEffect(() => {
+    setValue(customProvinces?.[0]?.province);
+  }, [allProvince]);
+
+  console.log(value);
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          {customProvinces.map((item) => (
-            <Tab label={item?.province} />
-          ))}
-          {/* <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} /> */}
-          {/* <Tab label="Item One" {...a11yProps(0)} /> */}
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
+    <Box sx={{ width: "100%", typography: "body1" }}>
+      <TabContext value={value}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <TabList onChange={handleChange}>
+            {customProvinces?.map((item) => (
+              <Tab
+                key={item?._id}
+                label={item.province}
+                value={item.province}
+              />
+            ))}
+          </TabList>
+        </Box>
+        <TabPanel value={value}>Item One</TabPanel>
+        {/* <TabPanel value="2">Item Two</TabPanel>
+        <TabPanel value="3">Item Three</TabPanel> */}
+      </TabContext>
     </Box>
   );
 }
