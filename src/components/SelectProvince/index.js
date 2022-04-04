@@ -12,6 +12,8 @@ export default function SelectProvince({
   setSelectedProvince,
   tours,
   error,
+  getTours,
+  getAllProvince,
 }) {
   const customProvinces = [
     ...new Set(allProvince?.map((item) => item.province)),
@@ -43,10 +45,13 @@ export default function SelectProvince({
         </Box>
         <TabPanel value={selectedProvince}>
           {" "}
-          <Locations tours={tours} error={error} />
+          <Locations
+            tours={tours}
+            error={error}
+            getTours={getTours}
+            getAllProvince={getAllProvince}
+          />
         </TabPanel>
-        {/* <TabPanel value="2">Item Two</TabPanel>
-        <TabPanel value="3">Item Three</TabPanel> */}
       </TabContext>
     </Box>
   );

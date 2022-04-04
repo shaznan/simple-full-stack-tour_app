@@ -55,6 +55,8 @@ function App() {
         setSelectedProvince={setSelectedProvince}
         tours={tours}
         error={error}
+        getTours={getTours}
+        getAllProvince={getAllProvince}
       />
     </div>
   );

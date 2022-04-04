@@ -13,23 +13,30 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Button } from "@mui/material";
 import { Grid } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function LocaitonCard({ data, handleOpen }) {
+export default function LocaitonCard({ data, handleOpen, deleteTour }) {
   const { firstName, imgUrl, description, title, province, createdAt } =
     data || {};
 
   return (
     <Grid item xs={12} md={6} lg={3}>
       <Card sx={{ maxWidth: 345 }} className="card">
-        <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              {[...firstName][0]}
-            </Avatar>
-          }
-          title={title}
-          subheader={createdAt}
-        />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <CardHeader
+            avatar={
+              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                {[...firstName][0]}
+              </Avatar>
+            }
+            title={title}
+            subheader={createdAt}
+          />
+          <DeleteIcon
+            style={{ color: "grey", marginLeft: "auto", marginRight: "auto" }}
+            onClick={() => deleteTour(data?._id)}
+          />
+        </div>
         <CardMedia
           component="img"
           height="194"
