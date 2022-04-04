@@ -4,6 +4,7 @@ export const SERVICE = {
 };
 
 export const LIST_OF_PROVINCE = {
+  ALL: "ALL",
   NORTHERN_PROVINCE: "Northern Province",
   NORTH_CENTRAL_PROVINCE: "North Central Province",
   EASTERN_PROVINCE: "Eastern Province",

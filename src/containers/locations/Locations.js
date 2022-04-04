@@ -3,14 +3,10 @@ import LocationCard from "../../components//LocationCard";
 import { Grid } from "@mui/material";
 import ViewLocation from "../ViewLocation/ViewLocation";
 
-function Locations({ tours, error, getAllTours }) {
+function Locations({ tours, error }) {
   const [openLocation, setOpenLocation] = useState(false);
   const handleClose = () => setOpenLocation(false);
   const handleOpen = () => setOpenLocation(true);
-
-  useEffect(() => {
-    getAllTours();
-  }, []);
 
   return (
     <>

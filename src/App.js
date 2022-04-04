@@ -11,10 +11,15 @@ function App() {
   const [tours, setAllTours] = useState([]);
   const [error, setError] = useState(false);
   const [allProvince, setAllProvince] = useState(null);
+  const [selectedProvince, setSelectedProvince] = useState(null);
 
-  const getAllTours = async () => {
+  const getTours = async () => {
     try {
-      const tours = await axios.get(`${SERVICE.HEROKU}/api/v1/tours`);
+      const tours = await axios.get(
+        `${SERVICE.HEROKU}/api/v1/tours?${
+          selectedProvince ? `province=${selectedProvince}` : ""
+        }`
+      );
       setAllTours(tours?.data?.tour);
     } catch (error) {
       setError(true);
@@ -33,15 +38,24 @@ function App() {
   };
 
   useEffect(() => {
+    getTours();
+  }, [selectedProvince]);
+
+  useEffect(() => {
     getAllProvince();
   }, []);
 
   return (
     <div className="App">
       <Header />
-      <AddLocations getAllTours={getAllTours} />
-      <SelectProvince allProvince={allProvince} />
-      <Locations tours={tours} error={error} getAllTours={getAllTours} />
+      <AddLocations getAllTours={getTours} />
+      <SelectProvince
+        allProvince={allProvince}
+        selectedProvince={selectedProvince}
+        setSelectedProvince={setSelectedProvince}
+        tours={tours}
+        error={error}
+      />
     </div>
   );
 }
