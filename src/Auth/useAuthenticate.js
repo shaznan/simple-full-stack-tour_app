@@ -1,16 +1,14 @@
 import React, { Children, createContext } from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
-import userPool from "./userPool";
-
-const AccountContext = createContext();
+import Pool from "./userPool";
 
 //if confused with this promise, resolve, reject, watch this=> https://www.youtube.com/watch?v=OXpZfyVXeI8&t=8s
 
-const Account = (props) => {
-  const authenticate = async (username, password) => {
+const useAuthenticate = () => {
+  const authenticate = async (Username, Password) => {
     return await new Promise((resolve, reject) => {
-      const user = new CognitoUser({ username, userPool });
-      const authDetails = new AuthenticationDetails({ username, password });
+      const user = new CognitoUser({ Username, Pool });
+      const authDetails = new AuthenticationDetails({ Username, Password });
 
       user.authenticateUser(authDetails, {
         onSuccess: (data) => {
@@ -28,11 +26,7 @@ const Account = (props) => {
       });
     });
   };
-  return (
-    <AccountContext.Provider value={authenticate}>
-      {props.Children}
-    </AccountContext.Provider>
-  );
+  return [authenticate];
 };
 
-export { Account, AccountContext };
+export default useAuthenticate;
