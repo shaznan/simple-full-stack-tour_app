@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import useAuthenticate from "../Auth/useAuthenticate";
+import useAuthenticate from "../../../Auth/useAuthenticate";
 
 const Login = () => {
   const [email, setEmail] = useState("");

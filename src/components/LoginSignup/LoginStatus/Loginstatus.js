@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import useAuthenticate from "./useAuthenticate";
+import useAuthenticate from "../../../Auth/useAuthenticate";
 
 const LoginStatus = () => {
   const [status, setStatus] = useState(false);

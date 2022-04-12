@@ -27,19 +27,37 @@ const useAuthenticate = () => {
     });
   };
 
+  //to check if user is logged in and get the session details(token and stuff)
   const getSession = async () => {
-    const user = Pool.getCurrentUser();
-    if (user) {
-      user.getSession((err, session) => {
-        if (err) {
-          throw new Error(err);
-        } else {
-          return session;
-        }
-      });
-    } else {
-      throw new Error();
-    }
+    return await new Promise((resolve, reject) => {
+      const user = Pool.getCurrentUser();
+      if (user) {
+        user.getSession(async (err, session) => {
+          if (err) {
+            reject(err);
+          } else {
+            const attributes = await new Promise((resolve, reject) => {
+              user.getUserAttributes((err, attributes) => {
+                if (err) {
+                  reject(err);
+                } else {
+                  let results = {};
+
+                  attributes.forEach(({ Name, Value }) => {
+                    results[Name] = Value;
+                  });
+
+                  resolve(results);
+                }
+              });
+            });
+            resolve({ user, ...session, ...attributes });
+          }
+        });
+      } else {
+        reject();
+      }
+    });
   };
 
   const logoutUser = () => {
