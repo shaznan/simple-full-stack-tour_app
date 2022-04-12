@@ -26,7 +26,29 @@ const useAuthenticate = () => {
       });
     });
   };
-  return [authenticate];
+
+  const getSession = async () => {
+    const user = Pool.getCurrentUser();
+    if (user) {
+      user.getSession((err, session) => {
+        if (err) {
+          throw new Error(err);
+        } else {
+          return session;
+        }
+      });
+    } else {
+      throw new Error();
+    }
+  };
+
+  const logoutUser = () => {
+    const user = Pool.getCurrentUser();
+    if (user) {
+      user.signOut();
+    }
+  };
+  return { authenticate, getSession, logoutUser };
 };
 
 export default useAuthenticate;

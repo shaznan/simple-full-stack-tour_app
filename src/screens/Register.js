@@ -38,6 +38,7 @@ const Signup = () => {
 
   return (
     <div>
+      <h1>Signup</h1>
       <form
         onSubmit={onSubmit}
         style={{ fontSize: "1rem", display: "flex", flexDirection: "column" }}
